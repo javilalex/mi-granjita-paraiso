@@ -1,0 +1,398 @@
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+:root {
+  --cs-pueblo: #811810;
+  --cs-light-apricot: #fdd9b9;
+  --cs-aqua-island: #94d1d7;
+  --cs-fiery-orange: #b54417;
+  --cs-sea-green: #358f3f;
+  --cs-apple: #3fab35;
+}
+
+#app {
+  font-family: "Roboto", sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.navbar-toggler {
+  font-size: 1rem;
+}
+
+footer,
+.footer {
+  margin-top: auto;
+}
+
+#app .picture-background:first-child,
+#app .title-area:first-child {
+  padding-top: 5rem;
+}
+
+.bg-pueblo,
+.navbar-light .logo-granjita,
+.navbar-light::after,
+.navbar-light .navbar-brand::after,
+.navbar-light .social-networks::before,
+.navbar-light .navbar-nav::before,
+.social-networks .row::before {
+  background-color: var(--cs-pueblo);
+}
+
+.bg-light-apricot {
+  background-color: var(--cs-light-apricot);
+}
+
+.bg-aqua-island {
+  background-color: var(--cs-aqua-island);
+}
+
+.bg-fiery-orange {
+  background-color: var(--cs-fiery-orange);
+}
+
+.bg-sea-green {
+  background-color: var(--cs-sea-green);
+}
+
+.bg-apple {
+  background-color: var(--cs-apple);
+}
+
+.bg-white,
+.navbar-dark .logo-granjita,
+.navbar-dark .facebook,
+.navbar-dark .whatsapp,
+.navbar-dark .phone,
+.navbar-dark .email,
+footer .facebook,
+footer .whatsapp,
+footer .phone,
+footer .email {
+  background-color: white;
+}
+
+.h-50vh {
+  height: 50vh;
+}
+
+.img-responsive {
+  object-fit: cover;
+}
+
+.flip-list-move {
+  position: absolute;
+  transition: transform 2s, ease-in 1s;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.white-transparent {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.text-shadow-dark,
+.nav-link:hover,
+.nav-link.router-link-exact-active {
+  transition: text-shadow ease 0.25s;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-dark .facebook,
+.navbar-dark .whatsapp,
+.navbar-dark .phone,
+.navbar-dark .email {
+  height: 30px;
+  width: 30px;
+}
+
+.navbar-light .facebook,
+.navbar-light .whatsapp,
+.navbar-light .phone,
+.navbar-light .email,
+footer .facebook,
+footer .whatsapp,
+footer .email,
+footer .phone {
+  height: 25px;
+  width: 25px;
+}
+
+.navbar-dark .logo-granjita {
+  height: 50px;
+  width: 150px;
+}
+
+.navbar-light .logo-granjita {
+  height: 40px;
+  width: 120px;
+}
+
+.logo-granjita,
+.facebook,
+.whatsapp,
+.phone,
+.email {
+  transition: opacity ease-in 0.25s, background-color ease-in 0.25s,
+    height ease-in 0.25s, width ease-in 0.25s;
+  cursor: pointer;
+  mask-size: cover;
+  mask-repeat: no-repeat !important;
+  height: 35px;
+  width: 35px;
+}
+
+#top-mi-granjita-paraiso {
+  width: 100%;
+  max-width: 500px;
+  height: 200px;
+  background-color: var(--cs-pueblo);
+}
+
+.responsive-logo-granjita {
+  -webkit-mask: url("../svg/granja_white_logo.svg") no-repeat;
+  mask: url("../svg/granja_white_logo.svg") no-repeat;
+  height: 67px;
+  width: 200px;
+  background-color: white;
+}
+
+.logo-granjita {
+  -webkit-mask: url("../svg/granja_white_logo.svg") no-repeat;
+  mask: url("../svg/granja_white_logo.svg") no-repeat;
+}
+
+.facebook {
+  -webkit-mask: url(../svg/facebook_white_logo.svg) no-repeat;
+  mask: url(../svg/facebook_white_logo.svg) no-repeat;
+}
+
+.whatsapp {
+  -webkit-mask: url(../svg/whatsapp_white_logo.svg) no-repeat;
+  mask: url(../svg/whatsapp_white_logo.svg) no-repeat;
+}
+
+.phone {
+  -webkit-mask: url(../svg/phone-24px.svg) no-repeat;
+  mask: url(../svg/phone-24px.svg) no-repeat;
+}
+
+.email {
+  mask: url(../svg/email.svg) no-repeat;
+}
+
+.navbar-dark .facebook,
+.navbar-dark .whatsapp,
+.navbar-dark .phone,
+.navbar-dark .email {
+  opacity: 0.7;
+}
+
+.navbar-light .facebook,
+.facebook:hover,
+.facebook,
+ul li:hover > a > .facebook {
+  background-color: #1778f2;
+  opacity: 1;
+}
+
+.navbar-light .whatsapp,
+.whatsapp:hover,
+.whatsapp,
+ul li:hover > a > .whatsapp {
+  background-color: #25d366;
+  opacity: 1;
+}
+
+.navbar-light .phone,
+.phone:hover,
+.phone,
+ul li:hover > a > .phone {
+  background-color: #1b407d;
+  opacity: 1;
+}
+
+.navbar-light .email,
+.email :hover,
+.email {
+  background-color: #1b407d;
+  opacity: 1;
+}
+
+.bg-gray-blur {
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(0.5rem);
+}
+
+.bg-gray-blur,
+.bg-white {
+  transition: background-color ease 0.5s;
+}
+
+.navbar-dark::after,
+.navbar-dark .navbar-brand::after,
+.navbar-dark .social-networks .row::before,
+.navbar-dark .navbar-nav::before,
+footer .container-fluid .row .col-md-4::before {
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: background-color ease 0.25s;
+}
+
+.navbar-light.bg-white,
+.bg-white-blue {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(0.5rem);
+}
+
+.navbar-light::after,
+.navbar-light .navbar-brand::after,
+.navbar-light .social-networks .row::before,
+.navbar-light .navbar-nav::before {
+  transition: background-color ease 0.25s;
+}
+
+.parallax-main-photo {
+  background-image: url(../img/1617573388505.jpg);
+  background-attachment: fixed;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+header::after {
+  position: relative;
+  display: block;
+  content: "";
+}
+.navbar-dark::after,
+.navbar-light::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+}
+.navbar .navbar-nav::before,
+/* footer .container .row .col-auto::before, */
+.navbar-brand::after {
+  right: 0;
+  margin-left: 10px;
+  width: 2px;
+}
+
+.social-networks .row::before {
+  left: 0;
+  margin-right: 10px;
+  width: 2px;
+}
+.social-networks .row::after {
+  margin-right: 10px;
+}
+
+.list-decoration-none {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+body[show-navbar="true"] {
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .responsive-logo-granjita {
+    -webkit-mask: url("../svg/granja_white_logo_stack.svg") no-repeat;
+    mask: url("../svg/granja_white_logo_stack.svg") no-repeat;
+    height: 118px;
+    width: 100px;
+  }
+
+  #top-mi-granjita-paraiso {
+    width: 500px;
+    height: 200px;
+  }
+
+  .navbar-nav::before,
+  footer .container-fluid .row .col-md-4::before {
+    position: relative;
+    display: block;
+    content: "";
+  }
+  footer .container-fluid .row .col-md-4:first-child::before {
+    content: none;
+  }
+  footer .container-fluid .row .col-md-4::before {
+    height: 100%;
+    width: 1px;
+  }
+}
+
+@media (min-width: 992px) {
+  .social-networks .row::before,
+  .social-networks .row::after,
+  .navbar-brand::after {
+    position: relative;
+    display: block;
+    content: "";
+  }
+
+  body[show-navbar="true"] {
+    overflow: auto;
+  }
+}
+
+@supports not (backdrop-filter: blur(0.5rem)) {
+  .bg-gray-blur {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .navbar-light.bg-white {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+}
+
+/*****Transitions***/
+.slide-fade-enter-active,
+.slide-fade-start-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.slide-fade-leave-active,
+.slide-fade-start-leave-active {
+  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-start-enter-from,
+.slide-fade-start-leave-to {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(50px);
+  opacity: 0;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

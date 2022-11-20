@@ -1,0 +1,12 @@
+#Exclusion de folders
+app2/
+bin/
+obj/
+.vs/
+.vscode/
+wwwroot/
+app/node_modules
+
+#exclusion de archivos
+appsettings.Development.json
+Mi-Granjita-Paraiso.csproj.user
