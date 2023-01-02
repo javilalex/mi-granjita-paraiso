@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Mi_Granjita_Paraiso.Entities
 {
@@ -30,10 +31,18 @@ namespace Mi_Granjita_Paraiso.Entities
         [NotNull]
         [Required]
         public long CategoryId { get; set; }
+#nullable enable
         public long? ParentItemId { get; set; }
+        public short StatusId { get; set; }
+        [JsonIgnore]
         public virtual Item ParentItem { get; set; }
+        [JsonIgnore]
         public virtual Category Category { get; set; }
+        [JsonIgnore]
+        public virtual Status Status { get; set; }
+        [JsonIgnore]
         public virtual IdentityUser User { get; set; }
+        [JsonIgnore]
         public virtual List<ItemFile> ItemFiles { get; set; }
     }
 }

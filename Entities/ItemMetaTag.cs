@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Mi_Granjita_Paraiso.Entities
 {
@@ -16,6 +17,7 @@ namespace Mi_Granjita_Paraiso.Entities
         [NotNull]
         [ForeignKey("Item")]
         public long ItemId { get; set; }
+        [JsonIgnore]
         public virtual Item Item { get; set; }
     }
 }

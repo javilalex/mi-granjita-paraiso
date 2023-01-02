@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Mi_Granjita_Paraiso.Entities
 {
@@ -12,6 +13,7 @@ namespace Mi_Granjita_Paraiso.Entities
         [Required]
         public int CategoryTypeId { get; set; }
         public DateTime DateSaved { get; set; } = DateTime.Now;
+        [JsonIgnore]
         public virtual CategoryType CategoryType { get; set; }
     }
 }

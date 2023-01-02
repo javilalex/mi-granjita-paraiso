@@ -4,6 +4,7 @@ using Mi_Granjita_Paraiso.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MiGranjitaParaiso.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221229054126_update schema to support nullable parent item")]
+    partial class updateschematosupportnullableparentitem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,10 +164,10 @@ namespace MiGranjitaParaiso.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int?>("FileId")
+                    b.Property<int>("FileId")
                         .HasColumnType("int");
 
-                    b.Property<long?>("ItemId")
+                    b.Property<long>("ItemId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -480,11 +483,15 @@ namespace MiGranjitaParaiso.Migrations
                 {
                     b.HasOne("Mi_Granjita_Paraiso.Entities.File", "File")
                         .WithMany("ItemFiles")
-                        .HasForeignKey("FileId");
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Mi_Granjita_Paraiso.Entities.Item", "Item")
                         .WithMany("ItemFiles")
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("File");
 

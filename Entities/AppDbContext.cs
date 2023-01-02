@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace Mi_Granjita_Paraiso.Entities
 {
@@ -8,8 +9,7 @@ namespace Mi_Granjita_Paraiso.Entities
     {
         public interface IAuditedEntity
         {
-            string CreatedByUserId { get; set; }
-            DateTime? CreatedDate { get; set; }
+            string UserId { get; set; }
             string NewValue { get; set; }
             string OldValue { get; set; }
             EntityState Type { get; set; }
@@ -18,22 +18,37 @@ namespace Mi_Granjita_Paraiso.Entities
         }
         public AppDbContext(DbContextOptions options) : base(options)
         {
+            
         }
         public override int SaveChanges()
         {
-            List<EntityState> states = new()
-            {
-                EntityState.Added,
-                EntityState.Added
-            };
+            //ChangeTracker.DetectChanges();
+            //var addedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Added);
+            //var removedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted);
+            //var changedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Modified);
 
-            var addedEntities = ChangeTracker.Entries().Where(x => states.Contains(x.State));
+            //foreach (var entity in addedEntities)
+            //{
+            //    entity.Metadata.GetContainerColumnName();
+            //    entity.Metadata.GetTableName();
+            //}
 
-            foreach(var entity in addedEntities)
-            {
-                entity.Metadata.GetContainerColumnName();
-                entity.Metadata.GetTableName();
-            }
+            //foreach (var entity in removedEntities)
+            //{
+            //    entity.Metadata.GetContainerColumnName();
+            //    entity.Metadata.GetTableName();
+            //}
+
+            //foreach (var entity in changedEntities)
+            //{
+            //    entity.Metadata.GetContainerColumnName();
+            //    entity.Metadata.GetTableName();
+
+            //    foreach(var prop in entity.Properties)
+            //    {
+            //        prop.
+            //    }
+            //}
 
             return base.SaveChanges();
         }

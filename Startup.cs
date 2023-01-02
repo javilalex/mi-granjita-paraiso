@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Text;
 using VueCliMiddleware;
@@ -24,9 +24,16 @@ namespace Mi_Granjita_Paraiso
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = configuration.GetConnectionString("defaultConnection");
-            
+
             //AutoMapper Service
             services.AddAutoMapper(typeof(Startup));
+
+            //Configuracion App Cliente
+            services.AddSpaStaticFiles(opt => opt.RootPath = "app/dist");
+
+            //Remover referencias circulares
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
             //Database Service
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             //Identity Service
@@ -76,22 +83,23 @@ namespace Mi_Granjita_Paraiso
                         };
                     });
 
-            //Configuracion App Cliente
-            services.AddSpaStaticFiles(opt => opt.RootPath = "app/dist");
-            services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(c =>
             {
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var assemblyVersion = GetAssemblyVersion();
 
-                options.SwaggerDoc(assemblyVersion, new Microsoft.OpenApi.Models.OpenApiInfo
+                c.SwaggerDoc(assemblyVersion, new OpenApiInfo
                 {
                     Version = assemblyVersion,
                     Title = "Mi Granjita Paraiso API Documentation",
                 });
-                
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+                c.UseAllOfForInheritance();
+                c.SelectSubTypesUsing(baseType => typeof(Startup).Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType)));
+                c.MapType<Dictionary<Enums.ModelTypes, List<string>>>(() => new OpenApiSchema());
+                c.SchemaFilter<DictionaryTKeyEnumTValueSchemaFilter>();
             });
         }
 
@@ -125,7 +133,7 @@ namespace Mi_Granjita_Paraiso
 
                 endpoints.MapToVueCliProxy(
                     "{*path}",
-                    new SpaOptions { SourcePath = "app" },                    
+                    new SpaOptions { SourcePath = "app" },
                     npmScript: command,
                     regex: "Compiled successfully",
                     forceKill: true,
@@ -134,11 +142,37 @@ namespace Mi_Granjita_Paraiso
             });
         }
 
-        string GetAssemblyVersion()
+        private string GetAssemblyVersion()
         {
             var assembly = Assembly.GetEntryAssembly();
             var version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
             return $"V{version.InformationalVersion}";
         }
+    }
+}
+
+// DictionaryTKeyEnumTValueSchemaFilter.cs
+public class DictionaryTKeyEnumTValueSchemaFilter : ISchemaFilter
+{
+    public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+    {
+        // Only run for fields that are a Dictionary<Enum, TValue>
+        if (!context.Type.IsGenericType || !context.Type.GetGenericTypeDefinition().IsAssignableFrom(typeof(Dictionary<,>)))
+        {
+            return;
+        }
+
+        var keyType = context.Type.GetGenericArguments()[0];
+        var valueType = context.Type.GetGenericArguments()[1];
+
+        if (!keyType.IsEnum)
+        {
+            return;
+        }
+
+        schema.Type = "object";
+        schema.Properties = keyType.GetEnumNames().ToDictionary(name => name,
+    name => context.SchemaGenerator.GenerateSchema(valueType,
+      context.SchemaRepository));
     }
 }
